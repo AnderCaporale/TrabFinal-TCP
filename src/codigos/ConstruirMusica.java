@@ -9,7 +9,8 @@ public class ConstruirMusica {
     private float duracao;
     private int oitava = 5;
     private int BPM = 120;
-    private byte instrumento = 0;
+    private byte instrumentoAtual = 0;
+    private byte instrumentoPadrão = 0; 
     private String musica = "";
     private int totalNotas = 0;
     ArrayList<Nota> notasMusica = new ArrayList<Nota>();
@@ -17,13 +18,14 @@ public class ConstruirMusica {
 
     public ConstruirMusica(String texto, byte instrumento, int BPM){
         this.textoInput = texto;
-        this.instrumento = instrumento;
+        this.instrumentoPadrão = instrumento;
+        this.instrumentoAtual = instrumento;
         this.BPM = BPM;
     }
     
     public void gerarMusica(){
-        String instrumento2 = MidiDictionary.INSTRUMENT_BYTE_TO_STRING.get(this.instrumento);
-        this.musica += "I[" + instrumento2 + "] ";
+        String instrumentoInicial = MidiDictionary.INSTRUMENT_BYTE_TO_STRING.get(this.instrumentoPadrão);
+        this.musica += "I[" + instrumentoInicial + "] ";
         this.musica += "T" + this.BPM + " ";
         this.musica += ":CON(7," + this.volume + ") ";
 
@@ -69,7 +71,7 @@ public class ConstruirMusica {
         novaNota.setNota(nota);
         novaNota.setOitava(this.oitava);
         novaNota.setVolume(this.volume);
-        novaNota.setInstrumento(this.instrumento);
+        novaNota.setInstrumento(this.instrumentoAtual);
         
         this.notasMusica.add(novaNota);
         
@@ -82,23 +84,23 @@ public class ConstruirMusica {
     }
     
     public byte getInstrumento(){
-        return this.instrumento;
+        return this.instrumentoAtual;
     }
     
     public void trocarInstrumento(String instrumento){
-        this.instrumento = MidiDictionary.INSTRUMENT_STRING_TO_BYTE.get(instrumento.toUpperCase());
+        this.instrumentoAtual = MidiDictionary.INSTRUMENT_STRING_TO_BYTE.get(instrumento.toUpperCase());
         this.musica += "I[" + instrumento + "] ";
         
     }
     
     public void trocarInstrumento(char valor){
         int numero = Integer.valueOf(valor+"");
-        int novaNota = this.instrumento + numero;    
+        int novaNota = this.instrumentoAtual + numero;    
 
-        byte novaNotaByte = (novaNota>= 0 && novaNota <= 127) ? (byte)(novaNota) : (byte)((numero + this.instrumento) - 128);
+        byte novaNotaByte = (novaNota>= 0 && novaNota <= 127) ? (byte)(novaNota) : (byte)((numero + this.instrumentoAtual) - 128);
         String instrumento1 = MidiDictionary.INSTRUMENT_BYTE_TO_STRING.get(novaNotaByte);
         this.musica += "I[" + instrumento1 + "] ";
-        this.instrumento = novaNotaByte;
+        this.instrumentoAtual = novaNotaByte;
     }
     
     public void trocarBPM(int bpm){
@@ -161,7 +163,7 @@ public class ConstruirMusica {
     }
     
     public void setInstrumento(byte numero){
-        this.instrumento = numero;
+        this.instrumentoAtual = numero;
     }
     
     public int getBPM(){
