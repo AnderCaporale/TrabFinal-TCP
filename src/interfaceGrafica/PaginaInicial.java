@@ -1,13 +1,15 @@
 package interfaceGrafica;
 
+import codigos.CarregaArquivo;
 import codigos.ConstruirMusica;
+import codigos.DownloadMusica;
+import codigos.LeMusica;
 import codigos.MoverSlider;
-import codigos.Nota;
 import codigos.ReproduzirMusica;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.net.URI;
-import java.util.ArrayList;
+import javax.swing.JFileChooser;
 import org.jfugue.midi.MidiDictionary;
 import org.jfugue.pattern.Pattern;
 import org.jfugue.player.Player;
@@ -52,6 +54,7 @@ public class PaginaInicial extends javax.swing.JFrame {
         inputBPM = new javax.swing.JSpinner();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -146,6 +149,15 @@ public class PaginaInicial extends javax.swing.JFrame {
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/page.png"))); // NOI18N
         jMenu1.setText("File");
+
+        jMenuItem5.setText("Carregar arquivo...");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem5);
+
         jMenuBar1.add(jMenu1);
 
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/group.png"))); // NOI18N
@@ -254,7 +266,6 @@ public class PaginaInicial extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
@@ -268,7 +279,7 @@ public class PaginaInicial extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(check, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btnPlay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRestart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -315,9 +326,21 @@ public class PaginaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCriarActionPerformed
 
     private void btnDownloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDownloadActionPerformed
-        // TODO add your handling code here:
-        //new Janela2().setVisible(true);
-        //this.dispose();
+        JFileChooser salvarArquivo = new JFileChooser();
+        String caminhoArquivo;
+        
+        if(check.isSelected() == true) {
+            try {
+                salvarArquivo.showSaveDialog(this);
+                caminhoArquivo = salvarArquivo.getSelectedFile().getAbsolutePath();
+                caminhoArquivo += ".mid";
+                
+                DownloadMusica musicaString = new DownloadMusica(musica.getMusica());
+                musicaString.criaArquivo(caminhoArquivo);
+            } catch(Exception erro) {
+                System.out.println("Erro ao salvar arquivo");
+            }
+        }
     }//GEN-LAST:event_btnDownloadActionPerformed
 
     private void checkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkActionPerformed
@@ -386,6 +409,25 @@ public class PaginaInicial extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        CarregaArquivo arquivo = new CarregaArquivo();
+        int statusArquivo = arquivo.getOpenFileChooser().showOpenDialog(this);
+        
+        if (statusArquivo == JFileChooser.APPROVE_OPTION) {
+            try {
+               String caminhoArquivo = arquivo.getOpenFileChooser().getSelectedFile().getAbsolutePath();
+               LeMusica textoMusica = new LeMusica();
+               textoMusica.abreArquivo(caminhoArquivo);
+               textoMusica.leArquivo();
+               lblTexto.setText(textoMusica.getTextoMusica());
+            } catch(Exception erro){
+            System.out.println(erro); 
+            }
+        } else {
+            System.out.println("Erro ao carregar arquivo.");
+        }
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -438,6 +480,7 @@ public class PaginaInicial extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea lblTexto;
     private javax.swing.JSlider sliderMusica;
