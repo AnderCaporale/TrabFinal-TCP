@@ -43,6 +43,7 @@ public class ConstruirMusica {
                 case 'O', 'o', 'U', 'u', 'I', 'i': repeteLetra(textoInput, i); break;
                 case '\n': instrumentoAleatorio(); break;
                 case ';': bpmAleatorio(); break;
+                case ' ': adicionarNota(' '); break;
             }
         }
     }
