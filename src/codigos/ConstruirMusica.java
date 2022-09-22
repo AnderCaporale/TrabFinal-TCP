@@ -5,12 +5,12 @@ import org.jfugue.midi.MidiDictionary;
 
 public class ConstruirMusica {
     private String textoInput;
-    private int volume = 80;
+    private int volume = 16;
+    private int volumeDefault = 16;
     private float duracao;
     private int oitava = 5;
     private int BPM = 120;
-    private byte instrumentoAtual = 0;
-    private byte instrumentoPadrão = 0; 
+    private byte instrumento = 0;
     private String musica = "";
     private int totalNotas = 0;
     ArrayList<Nota> notasMusica = new ArrayList<Nota>();
@@ -18,14 +18,13 @@ public class ConstruirMusica {
 
     public ConstruirMusica(String texto, byte instrumento, int BPM){
         this.textoInput = texto;
-        this.instrumentoPadrão = instrumento;
-        this.instrumentoAtual = instrumento;
+        this.instrumento = instrumento;
         this.BPM = BPM;
     }
     
     public void gerarMusica(){
-        String instrumentoInicial = MidiDictionary.INSTRUMENT_BYTE_TO_STRING.get(this.instrumentoPadrão);
-        this.musica += "I[" + instrumentoInicial + "] ";
+        String instrumento2 = MidiDictionary.INSTRUMENT_BYTE_TO_STRING.get(this.instrumento);
+        this.musica += "I[" + instrumento2 + "] ";
         this.musica += "T" + this.BPM + " ";
         this.musica += ":CON(7," + this.volume + ") ";
 
@@ -34,11 +33,14 @@ public class ConstruirMusica {
                 case 'A', 'B', 'C', 'D', 'E', 'F', 'G': adicionarNota(textoInput.charAt(i)); break;
                 case 'a', 'b', 'c', 'd', 'e', 'f', 'g': tratarMinusculas(textoInput.charAt(i), textoInput, i); break;
 
-                //case 'CONSOANTES': tratarConsoantes(texto.charAt(i), texto, i);
+                case 'Q', 'W', 'R', 'T', 'Y', 'P', 'S', 'H', 'J', 'K', 'L', 'Z', 'X', 'V', 'N', 'M' : repeteLetra(textoInput, i); break;      
+                case 'q', 'w', 'r', 't', 'y', 'p', 's', 'h', 'j', 'k', 'l', 'z', 'x', 'v', 'n', 'm' : repeteLetra(textoInput, i); break;
 
                 case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9': trocarInstrumento(textoInput.charAt(i)); break;
 
                 case ' ': aumentarVolume(); break;
+                case '+': tratarMais(textoInput, i); break;
+                case '-': tratarMenos(textoInput, i); break;
                 case '?': aumentarOitava(); break;
 
                 case 'O', 'o', 'U', 'u', 'I', 'i': trocarInstrumento("Harpsichord"); break;
@@ -46,6 +48,8 @@ public class ConstruirMusica {
                 case '\n': trocarInstrumento("Tubular_Bells"); break;
                 case ';': trocarInstrumento("Pan_Flute"); break;
                 case ',': trocarInstrumento("Church_Organ"); break;
+                
+                default: repeteLetra(textoInput, i); break;
             }
         }
     }
@@ -71,7 +75,7 @@ public class ConstruirMusica {
         novaNota.setNota(nota);
         novaNota.setOitava(this.oitava);
         novaNota.setVolume(this.volume);
-        novaNota.setInstrumento(this.instrumentoAtual);
+        novaNota.setInstrumento(this.instrumento);
         
         this.notasMusica.add(novaNota);
         
@@ -84,23 +88,23 @@ public class ConstruirMusica {
     }
     
     public byte getInstrumento(){
-        return this.instrumentoAtual;
+        return this.instrumento;
     }
     
     public void trocarInstrumento(String instrumento){
-        this.instrumentoAtual = MidiDictionary.INSTRUMENT_STRING_TO_BYTE.get(instrumento.toUpperCase());
+        this.instrumento = MidiDictionary.INSTRUMENT_STRING_TO_BYTE.get(instrumento.toUpperCase());
         this.musica += "I[" + instrumento + "] ";
         
     }
     
     public void trocarInstrumento(char valor){
         int numero = Integer.valueOf(valor+"");
-        int novaNota = this.instrumentoAtual + numero;    
+        int novaNota = this.instrumento + numero;    
 
-        byte novaNotaByte = (novaNota>= 0 && novaNota <= 127) ? (byte)(novaNota) : (byte)((numero + this.instrumentoAtual) - 128);
+        byte novaNotaByte = (novaNota>= 0 && novaNota <= 127) ? (byte)(novaNota) : (byte)((numero + this.instrumento) - 128);
         String instrumento1 = MidiDictionary.INSTRUMENT_BYTE_TO_STRING.get(novaNotaByte);
         this.musica += "I[" + instrumento1 + "] ";
-        this.instrumentoAtual = novaNotaByte;
+        this.instrumento = novaNotaByte;
     }
     
     public void trocarBPM(int bpm){
@@ -110,16 +114,65 @@ public class ConstruirMusica {
     
     
     public void aumentarVolume(){
-        if (this.volume == 120){
-            this.volume = 80;
-        } else{
-            this.volume = 120;
+        this.volume *= 2;
+
+        if(this.volume > 127){
+            this.volume = 127;
         }
+        
+        this.musica += ":CON(7," + volume + ") ";
+    }
+
+    private void diminuirVolume() {
+        this.volume = this.volumeDefault;
+        
+        this.musica += ":CON(7," + volume + ") ";
+    }
+    
+    private void tratarMais(String texto, int i) {
+        
+        if(i>0){
+            int caractereAnterior = texto.charAt(i-1);
+            
+            if(caractereAnterior=='R' && i>0){
+                aumentarOitava();
+            } else
+                if(caractereAnterior=='M'&& i>0){
+                    if(texto.charAt(i-2)=='P')
+                        if(texto.charAt(i-3)=='B'){
+                            trocarBPM(this.BPM+80);
+                        }
+                } else
+                    aumentarVolume();
+        }
+        else {
+            aumentarVolume();
+            return;
+        }
+    }
+
+    private void tratarMenos(String texto, int i) {
+        
+        int caractereAnterior = texto.charAt(i-1);  
+        
+        if(caractereAnterior=='R'){
+            diminuirOitava();
+        } else
+            diminuirVolume();
+    }
+
+    private void diminuirOitava() {
+        
+        if(this.oitava<1){
+            this.oitava=1;
+        } else
+            this.oitava-=1;
     }
     
     private void tratarMinusculas(char letra, String texto, int i){
         
-        char letraMaiuscula = (char)((int)letra - 32);
+        int minusculaParaMaiuscula = 32;
+        char letraMaiuscula = (char)((int)letra - minusculaParaMaiuscula);
         
         if (i==0) {
             adicionarNota('R');
@@ -131,8 +184,21 @@ public class ConstruirMusica {
         }    
     }
     
-    private void tratarConsoantes(char letra, String texto, int i){
+    private void repeteLetra(String texto, int i){
         
+        char min = (int) 'A';
+        char max = (int) 'G';
+        
+        int caractereAnterior = (int)texto.charAt(i-1);
+        
+        if (i==0) {
+            adicionarNota('R');
+        } else if (min<=caractereAnterior && max>=caractereAnterior){
+            adicionarNota((char)caractereAnterior);
+        } else {
+            adicionarNota('R');
+
+        } 
     }
     
     private void aumentarOitava(){
@@ -163,7 +229,7 @@ public class ConstruirMusica {
     }
     
     public void setInstrumento(byte numero){
-        this.instrumentoAtual = numero;
+        this.instrumento = numero;
     }
     
     public int getBPM(){
