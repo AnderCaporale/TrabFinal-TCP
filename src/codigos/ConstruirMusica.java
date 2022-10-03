@@ -116,9 +116,12 @@ public class ConstruirMusica {
     public void aumentarVolume(){
         this.volume *= 2;
 
-        if(this.volume > 127){
-            this.volume = 127;
+        if(this.volume == 254){
+            this.volume = 16;
         }
+        else{if(this.volume > 127 && this.volume < 254){
+            this.volume = 127;
+        }}
         
         this.musica += ":CON(7," + volume + ") ";
     }

@@ -1,10 +1,11 @@
-package codigos;
+package v1v2;
 
 import java.util.ArrayList;
 import java.util.Random;
 import org.jfugue.midi.MidiDictionary;
+import codigos.*;
 
-public class ConstruirMusica {
+public class ConstruirMusicaV1 {
     private String textoInput;
     private int volume = 16;
     private int volumeDefault = 16;
@@ -17,7 +18,7 @@ public class ConstruirMusica {
     ArrayList<Nota> notasMusica = new ArrayList<Nota>();
     String notasMusicaString = "";
 
-    public ConstruirMusica(String texto, byte instrumento, int BPM){
+    public ConstruirMusicaV1(String texto, byte instrumento, int BPM){
         this.textoInput = texto;
         this.instrumento = instrumento;
         this.BPM = BPM;
