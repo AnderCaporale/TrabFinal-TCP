@@ -1,20 +1,15 @@
 package v1v2;
 
-import java.util.ArrayList;
 import org.jfugue.midi.MidiDictionary;
-import codigos.*;
 
 public class ConstruirMusicaV2 {
     private String textoInput;
     private int volume = 16;
-    private float duracao;
     private int oitava = 5;
     private int BPM = 120;
     private byte instrumento = 0;
     private String musica = "";
     private int totalNotas = 0;
-    ArrayList<Nota> notasMusica = new ArrayList<Nota>();
-    String notasMusicaString = "";
 
     public ConstruirMusicaV2(String texto, byte instrumento, int BPM){
         this.textoInput = texto;
@@ -69,14 +64,6 @@ public class ConstruirMusicaV2 {
     
     public void adicionarNota(char nota){
         this.totalNotas++;
-        Nota novaNota = new Nota();
-        novaNota.setBPM(this.BPM);
-        novaNota.setNota(nota);
-        novaNota.setOitava(this.oitava);
-        novaNota.setVolume(this.volume);
-        novaNota.setInstrumento(this.instrumento);
-        
-        this.notasMusica.add(novaNota);
         
         if (this.oitava == 10 && (nota=='A' || nota=='B')) {    //Não existe A10 nem B10
             this.musica += nota + (oitava-1+" ");
@@ -165,20 +152,6 @@ public class ConstruirMusicaV2 {
     
     public int getTotalNotas(){
         return this.totalNotas;
-    }
-    
-    public ArrayList<Nota> getNotasMusica(){
-        return this.notasMusica;
-    }
-    
-    public String gerarNotasString(){
-        String resultado = "";
-        
-        for (int i=0; i<notasMusica.size(); i++ ){
-            resultado += Nota.construirNota(notasMusica.get(i));
-        }
-        
-        return resultado;
     }
     
     public void setInstrumento(byte numero){

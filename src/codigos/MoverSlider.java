@@ -15,14 +15,12 @@ public class MoverSlider extends Thread {
     
     public void run(){
         while (sliderMusica.getValue() < sliderMusica.getMaximum()){
-           
             try {
                 sleep( (1000*60 / velocidade)); 
             } catch (InterruptedException ex) {
                 Logger.getLogger(MoverSlider.class.getName()).log(Level.SEVERE, null, ex);
             }
             this.sliderMusica.setValue(this.sliderMusica.getValue() + 1);
-            
         }
     }
     

@@ -1,20 +1,16 @@
 package codigos;
 
-import java.util.ArrayList;
 import org.jfugue.midi.MidiDictionary;
 
 public class ConstruirMusica {
     private String textoInput;
     private int volume = 16;
     private int volumeDefault = 16;
-    private float duracao;
     private int oitava = 5;
     private int BPM = 120;
     private byte instrumento = 0;
     private String musica = "";
     private int totalNotas = 0;
-    ArrayList<Nota> notasMusica = new ArrayList<Nota>();
-    String notasMusicaString = "";
 
     public ConstruirMusica(String texto, byte instrumento, int BPM){
         this.textoInput = texto;
@@ -67,24 +63,14 @@ public class ConstruirMusica {
         return this.musica;
     }
     
-    
     public void adicionarNota(char nota){
         this.totalNotas++;
-        Nota novaNota = new Nota();
-        novaNota.setBPM(this.BPM);
-        novaNota.setNota(nota);
-        novaNota.setOitava(this.oitava);
-        novaNota.setVolume(this.volume);
-        novaNota.setInstrumento(this.instrumento);
-        
-        this.notasMusica.add(novaNota);
         
         if (this.oitava == 10 && (nota=='A' || nota=='B')) {    //Não existe A10 nem B10
             this.musica += nota + (oitava-1+" ");
         } else{
             this.musica += nota + (oitava+" ");
         }
-         
     }
     
     public byte getInstrumento(){
@@ -94,7 +80,6 @@ public class ConstruirMusica {
     public void trocarInstrumento(String instrumento){
         this.instrumento = MidiDictionary.INSTRUMENT_STRING_TO_BYTE.get(instrumento.toUpperCase());
         this.musica += "I[" + instrumento + "] ";
-        
     }
     
     public void trocarInstrumento(char valor){
@@ -183,7 +168,6 @@ public class ConstruirMusica {
             adicionarNota(letraMaiuscula);
         } else {
             adicionarNota('R');
-
         }    
     }
     
@@ -200,12 +184,10 @@ public class ConstruirMusica {
             adicionarNota((char)caractereAnterior);
         } else {
             adicionarNota('R');
-
         } 
     }
     
     private void aumentarOitava(){
-        
         if (this.oitava < 10){
             this.oitava+=1;
         } else{
@@ -217,19 +199,6 @@ public class ConstruirMusica {
         return this.totalNotas;
     }
     
-    public ArrayList<Nota> getNotasMusica(){
-        return this.notasMusica;
-    }
-    
-    public String gerarNotasString(){
-        String resultado = "";
-        
-        for (int i=0; i<notasMusica.size(); i++ ){
-            resultado += Nota.construirNota(notasMusica.get(i));
-        }
-        
-        return resultado;
-    }
     
     public void setInstrumento(byte numero){
         this.instrumento = numero;
@@ -238,5 +207,4 @@ public class ConstruirMusica {
     public int getBPM(){
         return this.BPM;
     }
-    
 }
