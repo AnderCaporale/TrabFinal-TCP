@@ -9,7 +9,7 @@ public class CarregaArquivo extends javax.swing.JFrame {
     
     public CarregaArquivo() {
         openFileChooser = new JFileChooser();
-        openFileChooser.setCurrentDirectory(new File("c:\\temp"));
+        openFileChooser.setCurrentDirectory(new File("."));
         openFileChooser.setFileFilter(new FileNameExtensionFilter(".txt", "txt"));
     }
     

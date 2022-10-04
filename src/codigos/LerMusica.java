@@ -1,5 +1,6 @@
 package codigos;
 
+import interfaceGrafica.NovaJanelaPopUp;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,7 +13,7 @@ public class LerMusica {
         try {
             arquivoMusica = Paths.get(caminhoArquivo);
         } catch(Exception erro) {
-            System.out.println(erro);
+            new NovaJanelaPopUp("Erro ao abrir arquivo").setVisible(true);
         }
     }
     
@@ -21,7 +22,7 @@ public class LerMusica {
            byte[] bytesArquivo = Files.readAllBytes(this.arquivoMusica);
            textoMusica = new String(bytesArquivo);
         } catch(Exception erro) {
-           System.out.println(erro); 
+           new NovaJanelaPopUp("Erro ao ler arquivo").setVisible(true);; 
        }
     }
     

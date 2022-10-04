@@ -345,6 +345,8 @@ public class PaginaInicial extends javax.swing.JFrame {
             reproducao.start();
             moverSlider = new MoverSlider(sliderMusica, musica.getBPM());
             moverSlider.start();
+        } else {
+            new NovaJanelaPopUp("Primeiro crie a música").setVisible(true);
         }
     }//GEN-LAST:event_btnPlayActionPerformed
 
@@ -353,17 +355,21 @@ public class PaginaInicial extends javax.swing.JFrame {
         byte instrumento = (byte)inputInstrumento.getSelectedIndex();
         int BMP = (int)inputBPM.getValue();
         
-        musica = new ConstruirMusica(entrada, instrumento, BMP);
+        if(entrada.isEmpty()) {
+            new NovaJanelaPopUp("Primeiro entre com o texto da música").setVisible(true);
+        } else {
+            musica = new ConstruirMusica(entrada, instrumento, BMP);
         
-        musica.gerarMusica();
-        check.setSelected(true);
-        sliderMusica.setMaximum(musica.getTotalNotas());
-        sliderMusica.setValue(0);
-        
+            musica.gerarMusica();
+            check.setSelected(true);
+            sliderMusica.setMaximum(musica.getTotalNotas());
+            sliderMusica.setValue(0);
+        }
     }//GEN-LAST:event_btnCriarActionPerformed
 
     private void btnDownloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDownloadActionPerformed
-        JFileChooser salvarArquivo = new JFileChooser();
+        File diretorioAtual = new File(".");
+        JFileChooser salvarArquivo = new JFileChooser(diretorioAtual);
         String caminhoArquivo;
         
         if(check.isSelected() == true) {
@@ -375,8 +381,10 @@ public class PaginaInicial extends javax.swing.JFrame {
                 DownloadMusica musicaString = new DownloadMusica(musica.getMusica());
                 musicaString.criaArquivo(caminhoArquivo);
             } catch(Exception erro) {
-                System.out.println("Erro ao salvar arquivo");
+                new NovaJanelaPopUp("Arquivo não salvo").setVisible(true);
             }
+        } else {
+            new NovaJanelaPopUp("Primeiro crie a música").setVisible(true);
         }
     }//GEN-LAST:event_btnDownloadActionPerformed
 
@@ -390,8 +398,7 @@ public class PaginaInicial extends javax.swing.JFrame {
             URI link = new URI("https://github.com/albertoborsatto");
             Desktop.getDesktop().browse(link);
         }catch(Exception erro){
-            System.out.println("Erro ao abrir GitHub");
-            System.out.println(erro);
+            new NovaJanelaPopUp("Erro ao abrir GitHub").setVisible(true);
         }
     }//GEN-LAST:event_menuAlbertoActionPerformed
 
@@ -400,8 +407,7 @@ public class PaginaInicial extends javax.swing.JFrame {
             URI link = new URI("https://github.com/AnderCaporale");
             Desktop.getDesktop().browse(link);
         }catch(Exception erro){
-            System.out.println("Erro ao abrir GitHub");
-            System.out.println(erro);
+            new NovaJanelaPopUp("Erro ao abrir GitHub").setVisible(true);
         }
     }//GEN-LAST:event_menuAndersonActionPerformed
 
@@ -410,8 +416,7 @@ public class PaginaInicial extends javax.swing.JFrame {
             URI link = new URI("https://github.com/quinhas123");
             Desktop.getDesktop().browse(link);
         }catch(Exception erro){
-            System.out.println("Erro ao abrir GitHub");
-            System.out.println(erro);
+            new NovaJanelaPopUp("Erro ao abrir GitHub").setVisible(true);
         }
     }//GEN-LAST:event_menuLucasActionPerformed
 
@@ -443,8 +448,7 @@ public class PaginaInicial extends javax.swing.JFrame {
             URI link = new URI("https://github.com/BrunoGVergara");
             Desktop.getDesktop().browse(link);
         }catch(Exception erro){
-            System.out.println("Erro ao abrir GitHub");
-            System.out.println(erro);
+            new NovaJanelaPopUp("Erro ao abrir GitHub").setVisible(true);
         }
     }//GEN-LAST:event_menuBrunoActionPerformed
 
@@ -460,10 +464,10 @@ public class PaginaInicial extends javax.swing.JFrame {
                textoMusica.lerArquivo();
                lblTexto.setText(textoMusica.getTextoMusica());
             } catch(Exception erro){
-            System.out.println(erro); 
+                new NovaJanelaPopUp("Arquivo não carregado").setVisible(true);
             }
         } else {
-            System.out.println("Erro ao carregar arquivo.");
+            new NovaJanelaPopUp("Arquivo não carregado").setVisible(true);
         }
     }//GEN-LAST:event_menuCarregarActionPerformed
 
@@ -477,7 +481,7 @@ public class PaginaInicial extends javax.swing.JFrame {
             Desktop desktop = Desktop.getDesktop();  
             desktop.open(new File("extras/Tutorial.pdf"));
         } catch(IOException erro){
-            System.out.println("Erro ao abrir tutorial");
+            new NovaJanelaPopUp("Erro ao abrir tutorial").setVisible(true);
         }
     }//GEN-LAST:event_menuTutorialActionPerformed
 
