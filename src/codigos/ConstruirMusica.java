@@ -26,13 +26,64 @@ public class ConstruirMusica {
 
         for (int i=0; i<textoInput.length(); i++){
             switch (textoInput.charAt(i)){
-                case 'A', 'B', 'C', 'D', 'E', 'F', 'G': adicionarNota(textoInput.charAt(i)); break;
-                case 'a', 'b', 'c', 'd', 'e', 'f', 'g': tratarMinusculas(textoInput.charAt(i), textoInput, i); break;
+                case 'A': 
+                case 'B': 
+                case 'C': 
+                case 'D': 
+                case 'E': 
+                case 'F': 
+                case 'G': adicionarNota(textoInput.charAt(i)); break;
+                case 'a': 
+                case 'b': 
+                case 'c': 
+                case 'd': 
+                case 'e': 
+                case 'f': 
+                case 'g': tratarMinusculas(textoInput.charAt(i), textoInput, i); break;
 
-                case 'Q', 'W', 'R', 'T', 'Y', 'P', 'S', 'H', 'J', 'K', 'L', 'Z', 'X', 'V', 'N', 'M' : repeteLetra(textoInput, i); break;      
-                case 'q', 'w', 'r', 't', 'y', 'p', 's', 'h', 'j', 'k', 'l', 'z', 'x', 'v', 'n', 'm' : repeteLetra(textoInput, i); break;
+                case 'Q': 
+                case 'W': 
+                case 'R': 
+                case 'T': 
+                case 'Y': 
+                case 'P': 
+                case 'S': 
+                case 'H': 
+                case 'J': 
+                case 'K': 
+                case 'L': 
+                case 'Z': 
+                case 'X': 
+                case 'V': 
+                case 'N': 
+                case 'M': repeteLetra(textoInput, i); break;      
+                case 'q': 
+                case 'w': 
+                case 'r': 
+                case 't': 
+                case 'y': 
+                case 'p': 
+                case 's': 
+                case 'h': 
+                case 'j': 
+                case 'k': 
+                case 'l': 
+                case 'z': 
+                case 'x': 
+                case 'v': 
+                case 'n': 
+                case 'm': repeteLetra(textoInput, i); break;
 
-                case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9': trocarInstrumento(textoInput.charAt(i)); break;
+                case '0': 
+                case '1': 
+                case '2': 
+                case '3': 
+                case '4': 
+                case '5': 
+                case '6': 
+                case '7': 
+                case '8': 
+                case '9': trocarInstrumento(textoInput.charAt(i)); break;
 
                 case ' ': aumentarVolume(); break;
                 case '+': tratarMais(textoInput, i); break;
