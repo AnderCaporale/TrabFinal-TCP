@@ -58,12 +58,27 @@ public class ConstruirMusica {
         return this.textoInput;
     }
     
-    
     public String getMusica(){
         return this.musica;
     }
     
-    public void adicionarNota(char nota){
+    public void setInstrumento(byte numero){
+        this.instrumento = numero;
+    }
+    
+    public int getBPM(){
+        return this.BPM;
+    }
+    
+    public byte getInstrumento(){
+        return this.instrumento;
+    }
+    
+    public int getTotalNotas(){
+        return this.totalNotas;
+    }
+    
+    private void adicionarNota(char nota){
         this.totalNotas++;
         
         if (this.oitava == 10 && (nota=='A' || nota=='B')) {    //Não existe A10 nem B10
@@ -73,16 +88,12 @@ public class ConstruirMusica {
         }
     }
     
-    public byte getInstrumento(){
-        return this.instrumento;
-    }
-    
-    public void trocarInstrumento(String instrumento){
+    private void trocarInstrumento(String instrumento){
         this.instrumento = MidiDictionary.INSTRUMENT_STRING_TO_BYTE.get(instrumento.toUpperCase());
         this.musica += "I[" + instrumento + "] ";
     }
     
-    public void trocarInstrumento(char valor){
+    private void trocarInstrumento(char valor){
         int numero = Integer.valueOf(valor+"");
         int novaNota = this.instrumento + numero;    
 
@@ -92,13 +103,13 @@ public class ConstruirMusica {
         this.instrumento = novaNotaByte;
     }
     
-    public void trocarBPM(int bpm){
+    private void trocarBPM(int bpm){
         this.BPM = bpm;
         this.musica += "T" + bpm + " ";
     }
     
     
-    public void aumentarVolume(){
+    private void aumentarVolume(){
         this.volume *= 2;
 
         if(this.volume == 254){
@@ -193,18 +204,5 @@ public class ConstruirMusica {
         } else{
             this.oitava = 5;
         }
-    }
-    
-    public int getTotalNotas(){
-        return this.totalNotas;
-    }
-    
-    
-    public void setInstrumento(byte numero){
-        this.instrumento = numero;
-    }
-    
-    public int getBPM(){
-        return this.BPM;
     }
 }

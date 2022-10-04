@@ -3,7 +3,7 @@ package interfaceGrafica;
 import codigos.CarregaArquivo;
 import codigos.ConstruirMusica;
 import codigos.DownloadMusica;
-import codigos.LeMusica;
+import codigos.LerMusica;
 import codigos.MoverSlider;
 import codigos.ReproduzirMusica;
 import java.awt.Color;
@@ -16,9 +16,9 @@ import org.jfugue.midi.MidiDictionary;
 
 public class PaginaInicial extends javax.swing.JFrame {
     
-    ConstruirMusica musica;
-    ReproduzirMusica reproducao;
-    MoverSlider moverSlider;
+    private ConstruirMusica musica;
+    private ReproduzirMusica reproducao;
+    private MoverSlider moverSlider;
     
     public PaginaInicial() {
         initComponents();
@@ -50,17 +50,17 @@ public class PaginaInicial extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         inputBPM = new javax.swing.JSpinner();
         jLabel4 = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        barraMenu = new javax.swing.JMenuBar();
+        menuFile = new javax.swing.JMenu();
+        menuCarregar = new javax.swing.JMenuItem();
         menuFechar = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        menuTutorial = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        menuIntegrantes = new javax.swing.JMenu();
+        menuAlberto = new javax.swing.JMenuItem();
+        menuAnderson = new javax.swing.JMenuItem();
+        menuBruno = new javax.swing.JMenuItem();
+        menuLucas = new javax.swing.JMenuItem();
+        menuInfos = new javax.swing.JMenu();
+        menuTutorial = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Texto para Música");
@@ -148,24 +148,24 @@ public class PaginaInicial extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("50 - 300");
 
-        jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
-        jMenuBar1.setBorder(null);
-        jMenuBar1.setForeground(new java.awt.Color(0, 0, 0));
-        jMenuBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jMenuBar1.setOpaque(true);
+        barraMenu.setBackground(new java.awt.Color(255, 255, 255));
+        barraMenu.setBorder(null);
+        barraMenu.setForeground(new java.awt.Color(0, 0, 0));
+        barraMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        barraMenu.setOpaque(true);
 
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/page.png"))); // NOI18N
-        jMenu1.setText("File");
-        jMenu1.setFocusable(false);
-        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        menuFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/page.png"))); // NOI18N
+        menuFile.setText("File");
+        menuFile.setFocusable(false);
+        menuFile.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jMenuItem5.setText("Carregar arquivo...");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        menuCarregar.setText("Carregar arquivo...");
+        menuCarregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                menuCarregarActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem5);
+        menuFile.add(menuCarregar);
 
         menuFechar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/door_out.png"))); // NOI18N
         menuFechar.setText("Fechar");
@@ -174,84 +174,84 @@ public class PaginaInicial extends javax.swing.JFrame {
                 menuFecharActionPerformed(evt);
             }
         });
-        jMenu1.add(menuFechar);
+        menuFile.add(menuFechar);
 
-        jMenuBar1.add(jMenu1);
+        barraMenu.add(menuFile);
 
-        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/group.png"))); // NOI18N
-        jMenu3.setText("Integrantes");
-        jMenu3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jMenu3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jMenu3.addActionListener(new java.awt.event.ActionListener() {
+        menuIntegrantes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/group.png"))); // NOI18N
+        menuIntegrantes.setText("Integrantes");
+        menuIntegrantes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        menuIntegrantes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        menuIntegrantes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu3ActionPerformed(evt);
+                menuIntegrantesActionPerformed(evt);
             }
         });
 
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/user.png"))); // NOI18N
-        jMenuItem1.setText("Alberto");
-        jMenuItem1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        menuAlberto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/user.png"))); // NOI18N
+        menuAlberto.setText("Alberto");
+        menuAlberto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuAlberto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                menuAlbertoActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem1);
+        menuIntegrantes.add(menuAlberto);
 
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/user.png"))); // NOI18N
-        jMenuItem2.setText("Anderson");
-        jMenuItem2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        menuAnderson.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/user.png"))); // NOI18N
+        menuAnderson.setText("Anderson");
+        menuAnderson.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuAnderson.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                menuAndersonActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem2);
+        menuIntegrantes.add(menuAnderson);
 
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/user.png"))); // NOI18N
-        jMenuItem3.setText("Bruno");
-        jMenuItem3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        menuBruno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/user.png"))); // NOI18N
+        menuBruno.setText("Bruno");
+        menuBruno.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuBruno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                menuBrunoActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem3);
+        menuIntegrantes.add(menuBruno);
 
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/user.png"))); // NOI18N
-        jMenuItem4.setText("Lucas");
-        jMenuItem4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        menuLucas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/user.png"))); // NOI18N
+        menuLucas.setText("Lucas");
+        menuLucas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuLucas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                menuLucasActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem4);
+        menuIntegrantes.add(menuLucas);
 
-        jMenuBar1.add(jMenu3);
+        barraMenu.add(menuIntegrantes);
 
-        menuTutorial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/help.png"))); // NOI18N
-        menuTutorial.setText("Infos");
-        menuTutorial.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        menuTutorial.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        menuInfos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/help.png"))); // NOI18N
+        menuInfos.setText("Infos");
+        menuInfos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuInfos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        menuInfos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuInfosActionPerformed(evt);
+            }
+        });
+
+        menuTutorial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pdf.png"))); // NOI18N
+        menuTutorial.setText("Abrir Tutorial");
         menuTutorial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuTutorialActionPerformed(evt);
             }
         });
+        menuInfos.add(menuTutorial);
 
-        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pdf.png"))); // NOI18N
-        jMenuItem6.setText("Abrir Tutorial");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
-            }
-        });
-        menuTutorial.add(jMenuItem6);
+        barraMenu.add(menuInfos);
 
-        jMenuBar1.add(menuTutorial);
-
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(barraMenu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -339,9 +339,7 @@ public class PaginaInicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayActionPerformed
-        // TODO add your handling code here:
         if (check.isSelected() == true){
-            
             //Aloca Threads para reproduzir musica e mover slider ao mesmo tempo.
             reproducao = new ReproduzirMusica(musica.getMusica());
             reproducao.start();
@@ -351,7 +349,6 @@ public class PaginaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPlayActionPerformed
 
     private void btnCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarActionPerformed
-        // TODO add your handling code here:
         String entrada = lblTexto.getText();
         byte instrumento = (byte)inputInstrumento.getSelectedIndex();
         int BMP = (int)inputBPM.getValue();
@@ -387,8 +384,7 @@ public class PaginaInicial extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_checkActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
+    private void menuAlbertoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAlbertoActionPerformed
         try{
 
             URI link = new URI("https://github.com/albertoborsatto");
@@ -397,9 +393,9 @@ public class PaginaInicial extends javax.swing.JFrame {
             System.out.println("Erro ao abrir GitHub");
             System.out.println(erro);
         }
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_menuAlbertoActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void menuAndersonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAndersonActionPerformed
         try{
             URI link = new URI("https://github.com/AnderCaporale");
             Desktop.getDesktop().browse(link);
@@ -407,9 +403,9 @@ public class PaginaInicial extends javax.swing.JFrame {
             System.out.println("Erro ao abrir GitHub");
             System.out.println(erro);
         }
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_menuAndersonActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void menuLucasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuLucasActionPerformed
         try{
             URI link = new URI("https://github.com/quinhas123");
             Desktop.getDesktop().browse(link);
@@ -417,11 +413,11 @@ public class PaginaInicial extends javax.swing.JFrame {
             System.out.println("Erro ao abrir GitHub");
             System.out.println(erro);
         }
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_menuLucasActionPerformed
 
-    private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
+    private void menuIntegrantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuIntegrantesActionPerformed
 
-    }//GEN-LAST:event_jMenu3ActionPerformed
+    }//GEN-LAST:event_menuIntegrantesActionPerformed
 
     private void sliderMusicaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderMusicaStateChanged
         // TODO add your handling code here:
@@ -432,15 +428,17 @@ public class PaginaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_sliderMusicaMouseEntered
 
     private void btnRestartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestartActionPerformed
-        // TODO add your handling code here:
+        
         if (check.isSelected() == true){
-            reproducao.pause();
-            //moverSlider.pause();
-        }
+            try{
+                reproducao.pause();
+                moverSlider.pause();
+            } catch (Exception e){}
+        } 
+        sliderMusica.setValue(0);
     }//GEN-LAST:event_btnRestartActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
+    private void menuBrunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBrunoActionPerformed
         try{
             URI link = new URI("https://github.com/BrunoGVergara");
             Desktop.getDesktop().browse(link);
@@ -448,18 +446,18 @@ public class PaginaInicial extends javax.swing.JFrame {
             System.out.println("Erro ao abrir GitHub");
             System.out.println(erro);
         }
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_menuBrunoActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void menuCarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCarregarActionPerformed
         CarregaArquivo arquivo = new CarregaArquivo();
         int statusArquivo = arquivo.getOpenFileChooser().showOpenDialog(this);
         
         if (statusArquivo == JFileChooser.APPROVE_OPTION) {
             try {
                String caminhoArquivo = arquivo.getOpenFileChooser().getSelectedFile().getAbsolutePath();
-               LeMusica textoMusica = new LeMusica();
-               textoMusica.abreArquivo(caminhoArquivo);
-               textoMusica.leArquivo();
+               LerMusica textoMusica = new LerMusica();
+               textoMusica.abrirArquivo(caminhoArquivo);
+               textoMusica.lerArquivo();
                lblTexto.setText(textoMusica.getTextoMusica());
             } catch(Exception erro){
             System.out.println(erro); 
@@ -467,13 +465,13 @@ public class PaginaInicial extends javax.swing.JFrame {
         } else {
             System.out.println("Erro ao carregar arquivo.");
         }
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }//GEN-LAST:event_menuCarregarActionPerformed
+
+    private void menuInfosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuInfosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuInfosActionPerformed
 
     private void menuTutorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTutorialActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuTutorialActionPerformed
-
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         // TODO add your handling code here:
         try{
             Desktop desktop = Desktop.getDesktop();  
@@ -481,11 +479,11 @@ public class PaginaInicial extends javax.swing.JFrame {
         } catch(IOException erro){
             System.out.println("Erro ao abrir tutorial");
         }
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    }//GEN-LAST:event_menuTutorialActionPerformed
 
     private void menuFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFecharActionPerformed
         // TODO add your handling code here:
-        this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_menuFecharActionPerformed
 
     public static void main(String args[]) {
@@ -516,12 +514,12 @@ public class PaginaInicial extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new PaginaInicial().setVisible(true);
-                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton btnCriar;
     private javax.swing.JButton btnDownload;
     private javax.swing.JButton btnPlay;
@@ -533,19 +531,18 @@ public class PaginaInicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea lblTexto;
+    private javax.swing.JMenuItem menuAlberto;
+    private javax.swing.JMenuItem menuAnderson;
+    private javax.swing.JMenuItem menuBruno;
+    private javax.swing.JMenuItem menuCarregar;
     private javax.swing.JMenuItem menuFechar;
-    private javax.swing.JMenu menuTutorial;
+    private javax.swing.JMenu menuFile;
+    private javax.swing.JMenu menuInfos;
+    private javax.swing.JMenu menuIntegrantes;
+    private javax.swing.JMenuItem menuLucas;
+    private javax.swing.JMenuItem menuTutorial;
     private javax.swing.JSlider sliderMusica;
     // End of variables declaration//GEN-END:variables
 }

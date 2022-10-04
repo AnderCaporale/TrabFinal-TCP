@@ -4,9 +4,9 @@ import org.jfugue.pattern.Pattern;
 import org.jfugue.player.Player;
 
 public class ReproduzirMusica extends Thread{ 
-    String musica="";
-    Player player = new Player();
-    Pattern pattern1;
+    private String musica="";
+    private Player player = new Player();
+    private Pattern pattern1;
     
     public ReproduzirMusica(String notas){
         this.musica = notas;

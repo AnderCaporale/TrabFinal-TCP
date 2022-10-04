@@ -5,9 +5,9 @@ import java.io.IOException;
 import org.jfugue.pattern.Pattern;
 
 public class DownloadMusica {
-    String musica = "";
-    Pattern pattern1;
-    File localDownload;
+    private String musica = "";
+    private Pattern pattern1;
+    private File localDownload;
     
     public DownloadMusica(String notas) {
         this.musica = notas;

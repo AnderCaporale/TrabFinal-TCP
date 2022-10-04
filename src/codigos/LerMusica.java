@@ -4,11 +4,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class LeMusica {
+public class LerMusica {
     private Path arquivoMusica;
     private String textoMusica;
     
-    public void abreArquivo(String caminhoArquivo) {
+    public void abrirArquivo(String caminhoArquivo) {
         try {
             arquivoMusica = Paths.get(caminhoArquivo);
         } catch(Exception erro) {
@@ -16,7 +16,7 @@ public class LeMusica {
         }
     }
     
-    public void leArquivo() {
+    public void lerArquivo() {
        try {
            byte[] bytesArquivo = Files.readAllBytes(this.arquivoMusica);
            textoMusica = new String(bytesArquivo);
